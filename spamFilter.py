@@ -216,44 +216,6 @@ def train():
     print("trainLogitModel")
     trainLogitModel(config)
     print("trainLogitModel end")
-
-def test(test_sample_index_file):
-    '''根据样本文件生成不同WordIsSpamProbabilty的词的分布，用于逻辑回归拟合'''
-    config=load_config()
-    m=sm.load("logitModel")
-    judgeWorddict=loadJudgeWorddict(config.get("judge_worddict_file"))
-    sample_index_list=codecs.open(test_sample_index_file,'r','utf8');
-    leftcount=0
-    rightcount=0    
-    leftritgh=list()
-    for item in sample_index_list:
-        item=item.split()
-        signStr=item[0]
-        datapath=item[1]
-        datapath=os.path.join('./',datapath)
-        if spamStr==signStr:
-            signStr=1
-        else:
-            signStr=0
-        with codecs.open(datapath,'r','gbk','ignore') as h:
-            sentence='';
-            line=h.read(1024*10)
-            while line:
-                #此处代码和trainSample重复，可考虑写个通用函数然后传入lambda实现不同功能
-                r=getSentenceIsSpamProbabilty(line,judgeWorddict)
-                p=getWordDistribute(r[0])
-                word_sum=sum(p[0].values())+sum(p[1].values())+sum(r[1])
-                q=genLogitProperty(r)
-                #if sum(q)!=0:
-                pre=m.predict(q)
-                leftritgh.append((signStr,pre))
-                # if (pre[0]<0.51 and signStr==0)or(pre[0]>0.51 and signStr==1):
-                #     rightcount=rightcount+1
-                # else:
-                #     leftcount=leftcount+1
-                line=h.read(1024*10)
-    return leftritgh
-    print(leftcount,rightcount)
 if __name__ == '__main__':
     #train()
     test("sample_index1")
@@ -265,12 +227,4 @@ if __name__ == '__main__':
     #r=getSentenceIsSpamProbabilty(sentence,judgeWorddict)
     #logitProperty=genLogitProperty(r)
     #Predict=logitModel.predict(logitProperty)
-def tongji(lr,bz):
-    c=0
-    d=0
-    for i in lr:
-        if (i[1][0]<bz and i[0]==0)or(i[1][0]>bz and i[0]==1):
-            d=d+1
-        else:
-            c=c+1
-    return(c,d)
+

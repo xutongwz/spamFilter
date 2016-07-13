@@ -13,3 +13,5 @@ spamFilter是一个基于贝叶斯算法和逻辑回归的垃圾信息过滤模�
     #r=getSentenceIsSpamProbabilty(sentence,judgeWorddict)
     #logitProperty=genLogitProperty(r)
     #Predict=logitModel.predict(logitProperty)
+
+样本数据下载地址：http://plg.uwaterloo.ca/~gvcormac/treccorpus06/
