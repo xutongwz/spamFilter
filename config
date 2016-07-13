@@ -1,0 +1,11 @@
+{
+	"worddict_txt":"dict.txt",
+	"worddict_file":"dict.json",
+	"dealed_wd_file":"dealed_wd.json",
+	"probabilty_spam":0.8,
+	"probabilty_ham":0.2,
+	"sample_index_file":"sample_index",
+	"judge_worddict_file":"judge_worddict.json",
+	"logit_train_sample_file":"leftlist.csv",
+	"logit_model_file":"logitModel"
+}
